@@ -40,19 +40,23 @@
             <!-- Portfolio Grid Items-->
             <div class="row justify-content-center">
                 <!-- Portfolio Item 1-->
-                @foreach ($proyects as $proyect)
-                    <div class="col-md-6 col-lg-4 mb-5">
-                        <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
-                            <div
-                                class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
-                                <div class="portfolio-item-caption-content text-center text-white"><i
-                                        class="fas fa-plus fa-3x"></i></div>
-                            </div>
+                @if (!is_null($proyectos) && $proyectos->isNotEmpty())
+                    @foreach ($proyectos as $proyect)
+                        <div class="col-md-6 col-lg-4 mb-5">
+                            <div class="portfolio-item mx-auto" data-bs-toggle="modal" data-bs-target="#portfolioModal1">
+                                <div
+                                    class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                    <div class="portfolio-item-caption-content text-center text-white"><i
+                                            class="fas fa-plus fa-3x"></i></div>
+                                </div>
 
-                            <img class="img-fluid" src="{{ asset($proyect->image) }}" alt="..." />
+                                <img class="img-fluid" src="{{ asset($proyect->image) }}" alt="..." />
+                            </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <p>No hay proyectos disponibles</p>
+                @endif
                 <!-- About Section Button-->
                 <div class="text-center mt-4">
                     <a class="btn btn-xl btn-outline-dark" href="{{ route('proyects') }}">
@@ -96,20 +100,24 @@
             </div>
             <!-- About Section Content-->
             <div class="row justify-content-center">
-                @foreach ($clients as $client)
-                    <div class="col-12 col-sm-6 col-md-4 mb-4">
-                        <div class="card border-0 shadow h-100">
-                            <div class="card-body text-center">
-                                <img class="rounded-circle img-fluid mb-3" src="{{ asset($client->image) }}"
-                                    alt="{{ $client->name }}" style="width: 120px; height: 120px; object-fit: cover;">
-                                <h5 class="card-title">{{ $client->name }}</h5>
-                                <p class="card-text text-muted">
-                                    "{{ $client->description }}"
-                                </p>
+                @if (!is_null($clients) && $clients->isNotEmpty())
+                    @foreach ($clients as $client)
+                        <div class="col-12 col-sm-6 col-md-4 mb-4">
+                            <div class="card border-0 shadow h-100">
+                                <div class="card-body text-center">
+                                    <img class="rounded-circle img-fluid mb-3" src="{{ asset($client->image) }}"
+                                        alt="{{ $client->name }}" style="width: 120px; height: 120px; object-fit: cover;">
+                                    <h5 class="card-title">{{ $client->name }}</h5>
+                                    <p class="card-text text-muted">
+                                        "{{ $client->description }}"
+                                    </p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
+                    @endforeach
+                @else
+                    <p>No hay clientes disponibles</p>
+                @endif
                 <div class="text-center mt-4">
                     <a class="btn btn-xl btn-outline-dark" href="{{ route('clientes') }}">
                         <i class="fas fa-arrow-right me-2"></i>
@@ -181,33 +189,33 @@
     </section>
 
 @endsection
-      
-        {!! Html::script('afdeveloper/js/scripts.js') !!}
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{!! Html::script('afdeveloper/js/scripts.js') !!}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#contactForm').on('submit', function(event) {
-            event.preventDefault(); 
+            event.preventDefault();
 
             $('#submitButton').attr("disabled", true);
 
             var formData = $(this)
-        .serialize(); 
+                .serialize();
 
             $.ajax({
-                url: "{{ route('bandeja.store') }}", 
+                url: "{{ route('bandeja.store') }}",
                 type: 'POST',
                 data: formData,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
-                        'content') 
+                        'content')
                 },
                 success: function(response) {
                     if (response.success) {
                         $('#submitSuccessMessage').removeClass('d-none');
                         $('#submitErrorMessage').addClass('d-none');
-                        $('#contactForm')[0].reset(); 
+                        $('#contactForm')[0].reset();
                     } else {
                         $('#submitErrorMessage').removeClass('d-none');
                         $('#submitSuccessMessage').addClass('d-none');
@@ -219,7 +227,7 @@
                 },
                 complete: function() {
                     $('#submitButton').attr("disabled",
-                    false); 
+                        false);
                 }
             });
         });

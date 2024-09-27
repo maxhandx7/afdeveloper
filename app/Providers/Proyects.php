@@ -28,17 +28,20 @@ class Proyects extends ServiceProvider
     public function boot()
     {
 
-        if (Schema::hasTable('businesses')) {
+        if (Schema::hasTable('links')) {
             $proyects = link::get();
             if ($proyects->isNotEmpty()) {
                 $proyects = Link::where('status', 'ACTIVE')
-                    ->Limit('3')
+                    ->limit(3) 
                     ->get();
-                view()->share('proyects', $proyects);
+                view()->share('proyectos', $proyects);
+            } else {
+                view()->share('proyectos', null);
             }
         } else {
-            view()->share('proyects', null);
+            view()->share('proyectos', null);
         }
+        
 
     }
 }

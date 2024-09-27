@@ -28,9 +28,11 @@ class Clients extends ServiceProvider
         if (Schema::hasTable('clients')) {
             $clients = Client::get();
             if ($clients->isNotEmpty()) {
-                $clients =  Client::Limit('3')
-        ->get();
-         view()->share('clients', $clients);
+                $clients = Client::Limit(3)
+                    ->get();
+                view()->share('clients', $clients);
+            } else {
+                view()->share('clients', null);
             }
         } else {
             view()->share('clients', null);
