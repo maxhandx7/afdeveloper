@@ -20,23 +20,35 @@ class BusinessController extends Controller
     public function update(UpdateRequest $request, Business $business)
     {
         try {
+            $data = $request->except('_token', '_method', 'thead', 'facebook', 'twitter', 'instagram', 'show_letter', 'picture');
+
             if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
                 $image_name = time() . '_' . $file->getClientOriginalName();
                 $file->move(public_path("/image"), $image_name);
+                $data['logo'] = $image_name;
             }
-            if (isset($image_name)) {
-                $business->update($request->all() + [
-                    'logo' => $image_name,
-                ]);
-                return redirect()->route('business.index')->with('success', 'Se ha actualizado la empresa');
-            }
-             
-            $business->update($request->all());
-            return redirect()->route('business.index')->with('success', 'Se ha actualizado la empresa');
 
+            // Asigna valores a configuraciones
+            $configurations = $business->configurations ?? [];
+            if (!is_array($configurations)) {
+                $configurations = [];
+            }
+            $configurations['show_letter'] = $request->input('show_letter', null);
+            $configurations['thead'] = $request->input('thead', null);
+            $configurations['facebook'] = $request->input('facebook', null);
+            $configurations['twitter'] = $request->input('twitter', null);
+            $configurations['instagram'] = $request->input('instagram', null);
+
+            $business->configurations = $configurations;
+            
+            $business->update($data);
+
+            return redirect()->route('business.index')->with('success', 'Se ha actualizado la empresa');
         } catch (\Exception $th) {
-            return redirect()->back()->with('error', 'Ocurrió un error al actualizar la empresa');
+            return redirect()->back()->with('error', 'Ocurrió un error al actualizar la empresa: ' . $th->getMessage());
         }
     }
+
+
 }

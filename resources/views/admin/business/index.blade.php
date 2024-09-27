@@ -7,7 +7,7 @@
 @section('preference')
 @endsection
 @section('content')
-{!! Html::style('melody/vendors/summernote/dist/summernote-bs4.css') !!}
+    {!! Html::style('melody/vendors/summernote/dist/summernote-bs4.css') !!}
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
@@ -65,7 +65,7 @@
                                 <strong><i class="fas fa-align-left mr-1"></i> Misión</strong>
 
                                 <p class="text-muted">
-                                    {{ $business->mision  }}
+                                    {{ $business->mision }}
                                 </p>
                                 <hr>
                             </div>
@@ -271,6 +271,11 @@
     {!! Html::script('melody/js/dropify.js') !!}
     {!! Html::script('melody/vendors/summernote/dist/summernote-bs4.min.js') !!}
     {!! Html::script('melody/js/editorDemo.js') !!}
+    @if (session('error'))
+        <script>
+            alert("{{ session('error') }}");
+        </script>
+    @endif
     <script>
         $(document).ready(function() {
             $("#show_letter").on("change", function() {

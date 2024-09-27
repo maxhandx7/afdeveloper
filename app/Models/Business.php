@@ -9,13 +9,22 @@ class Business extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
+    protected $casts = [
+        'configurations' => 'json',
+     ];
+  
+     protected $fillable = [
         'name',
         'description',
+        'mision',
+        'vision',
         'logo',
         'mail',
         'address',
         'phone',
         'nit',
-    ];
+     ];
+
+  
 }
+
