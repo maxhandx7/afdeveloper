@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="{!! $business->description !!}" />
+    <meta name="description" content="{{$business->shortDescription}}" />
     <meta name="author" content="Alan Carabali" />
     <title>{{ $business->name }}</title>
     <link rel="shortcut icon" href="{{ asset('image/LOGO.png') }}" />
