@@ -49,7 +49,7 @@
     </div>
     
       <div class="text-center mt-4 font-weight-light">
-        ← Ir a <a href="/" class="text-primary">LogisticaSoft</a>
+        ← Ir a <a href="{{url('/')}}" class="text-primary">{{  $business->name }}</a>
     </div>  
   </form>
 @endsection
