@@ -5,6 +5,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="{{$business->shortDescription}}" />
+    <link rel="icon" href="{{ asset('image/LOGO.png') }}" sizes="32x32">
+    <link rel="icon" href="{{ asset('image/LOGO.png') }}" sizes="192x192">
+    <link rel="apple-touch-icon" href="{{ asset('image/LOGO.png') }}">
     <meta name="author" content="Alan Carabali" />
     <title>{{ $business->name }}</title>
     <link rel="shortcut icon" href="{{ asset('image/LOGO.png') }}" />
