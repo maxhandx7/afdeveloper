@@ -7,7 +7,7 @@
     <meta name="description" content="{!! $business->description !!}" />
     <meta name="author" content="Alan Carabali" />
     <title>{{ $business->name }}</title>
-    <link rel="shortcut icon" href="{{ asset('image/' . $business->logo) }}" />
+    <link rel="shortcut icon" href="{{ asset('image/LOGO.png') }}" />
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <!-- Google fonts-->
@@ -44,7 +44,7 @@
                             href="{{ url('/#contact') }}">Contacto</a></li>
 
                     @auth
-                        <li class="nav-item mx-0 mx-lg-1"><a class="btn btn-outline-primary ml-lg-3"
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded"
                                 href="{{ route('home') }}">Hola,
                                 {{ Auth::user()->name }}</a></li>
                     @endauth
@@ -147,8 +147,6 @@
                 </div>
             </div>
         @endforeach
-    @else
-        <p>No hay proyectos disponibles</p>
     @endif
 
 

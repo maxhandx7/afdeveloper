@@ -30,7 +30,7 @@
 
   <!-- endinject -->
 
-  <link rel="shortcut icon" href="{{ asset('image/' . $business->logo) }}" />
+  <link rel="shortcut icon" href="{{ asset('image/LOGO.png') }}" />
 
 </head>
 
