@@ -17,7 +17,7 @@ class UsersTableSeeder extends Seeder
         User::create([
             'name' => 'Alan Ferney',
             'email' => 'alancarabali@gmail.com',
-            'image' => 'image/system/profile.png',
+            'image' => 'system/profile.png',
             'password'=>'$2y$10$liZl2fBn4wBbJEAzsUobLuArOrEgurYORgMMPIw8J2yUU/BVSs/4y',
         ]);
     }

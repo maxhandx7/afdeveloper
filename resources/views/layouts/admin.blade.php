@@ -185,7 +185,7 @@
 
               <div class="nav-profile-img">
 
-                <img src="{{ asset( Auth::user()->image) }}" alt="image" class="img-xs rounded-circle ml-3">
+                <img src="{{ asset('image/' . Auth::user()->image) }}" alt="image" class="img-xs rounded-circle ml-3">
 
                 <span class="availability-status online"></span>             
 
