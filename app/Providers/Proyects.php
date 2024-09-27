@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Models\Link;
 use Illuminate\Cache\RateLimiting\Limit;
+
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class Proyects extends ServiceProvider
@@ -25,11 +27,18 @@ class Proyects extends ServiceProvider
      */
     public function boot()
     {
-        $proyects =  Link::where('status', 'ACTIVE')
-        ->Limit('3')
-        ->get();
-        
-        
-         view()->share('proyects', $proyects);
+
+        if (Schema::hasTable('businesses')) {
+            $proyects = link::get();
+            if ($proyects->isNotEmpty()) {
+                $proyects = Link::where('status', 'ACTIVE')
+                    ->Limit('3')
+                    ->get();
+                view()->share('proyects', $proyects);
+            }
+        } else {
+            view()->share('proyects', null);
+        }
+
     }
 }

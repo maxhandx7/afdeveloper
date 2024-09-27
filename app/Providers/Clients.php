@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Client;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class Clients extends ServiceProvider
@@ -24,10 +25,15 @@ class Clients extends ServiceProvider
      */
     public function boot()
     {
-        $clients =  Client::Limit('3')
+        if (Schema::hasTable('clients')) {
+            $clients = Client::get();
+            if ($clients->isNotEmpty()) {
+                $clients =  Client::Limit('3')
         ->get();
-        
-        
          view()->share('clients', $clients);
+            }
+        } else {
+            view()->share('clients', null);
+        }
     }
 }
