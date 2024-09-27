@@ -80,7 +80,7 @@
             </div>
             <!-- About Section Content-->
             <div class="row">
-                <div class="col-lg-4 ms-auto">
+                <div class="ms-auto">
                     <p class="lead">{!! $business->description !!}</p>
                 </div>
             </div>

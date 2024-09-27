@@ -48,7 +48,7 @@
                                 <strong><i class="fas fa-align-left mr-1"></i> Descripción</strong>
 
                                 <p class="text-muted">
-                                    {{ $business->description }}
+                                    {!! $business->description !!}
                                 </p>
                                 <hr>
                                 <strong><i class="fas fa-map-marked-alt mr-1"></i> Dirección</strong>
@@ -167,11 +167,6 @@
                         <label for="ruc">NIT</label>
                         <input type="text" class="form-control" name="nit" id="nit"
                             value="{{ $business->nit }}" aria-describedby="helpId">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description">Descripción</label>
-                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
                     </div>
 
                     <div class="form-group">
