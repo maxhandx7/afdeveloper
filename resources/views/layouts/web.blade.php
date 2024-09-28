@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="{{$business->shortDescription}}" />
+    <meta name="description" content="{{ $business->shortDescription }}" />
     <link rel="icon" href="{{ asset('image/LOGO.png') }}" sizes="32x32">
     <link rel="icon" href="{{ asset('image/LOGO.png') }}" sizes="192x192">
     <link rel="apple-touch-icon" href="{{ asset('image/LOGO.png') }}">
@@ -12,11 +12,10 @@
     <title>{{ $business->name }}</title>
     <link rel="shortcut icon" href="{{ asset('image/LOGO.png') }}" />
     <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    {!! Html::script('afdeveloper/js/all.js') !!}
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet"
-        type="text/css" />
+    {!! Html::style('afdeveloper/font/css.css') !!}
+    {!! Html::style('afdeveloper/font/css2.css') !!}
     <!-- Core theme CSS (includes Bootstrap)-->
     {!! Html::style('afdeveloper/css/styles.css') !!}
     @yield('styles')
@@ -158,12 +157,13 @@
 
 
 
-    <!-- Bootstrap core JS-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    {!! Html::script('afdeveloper/js/bootstrap.bundle.min.js') !!}
 
     {!! Html::script('afdeveloper/js/scripts.js') !!}
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {!! Html::script('afdeveloper/js/jquery.min.js') !!}
+
 
 </body>
 

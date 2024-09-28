@@ -14,7 +14,7 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <title>Logisticasoft Admin</title>
+  <title>{{ $business->name }}</title>
 
 
 
@@ -52,9 +52,10 @@
 
               <div class="brand-logo">
 
-                <center>
+                <div class="d-flex justify-content-center">
 
-                    <img src="{{asset('melody/images/logo.svg')}}" alt="logo"></center>
+                    <img src="{{asset('melody/images/logo.svg')}}" alt="logo">
+                  </div>
 
               </div>
 
