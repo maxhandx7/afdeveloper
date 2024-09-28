@@ -40,6 +40,9 @@ Route::resource('business', BusinessController::class)->names('business')->only(
 ]);
 Route::post('/bandeja', [BandejaController::class, 'store'])->name('bandeja.store');
 Route::get('/bandeja', [BandejaController::class, 'index'])->name('bandeja.index');
+Route::resource('bandeja', BandejaController::class)->names('bandeja')->only([
+    'index', 'destroy'
+]);
 
 
 Route::get('/', function () {

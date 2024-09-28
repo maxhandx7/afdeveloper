@@ -11,7 +11,7 @@
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
-                Administrar mensajes 
+                Administrar mensajes
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
@@ -28,6 +28,7 @@
                             <h4 class="card-title">Mensajes </h4>
                         </div>
                         <br>
+                        @include('errors.message')
                         <div class="table-responsive">
                             <table id="order-listing" class="table table-striped">
                                 <thead>
@@ -36,6 +37,8 @@
                                         <th>Correo</th>
                                         <th>Telefono</th>
                                         <th>Mensaje</th>
+                                        <th>Fecha</th>
+                                        <th>Accíones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -50,7 +53,15 @@
                                             <td>
                                                 <p class="text-justify">{{ $bandeja->message }} </p>
                                             </td>
-                                           
+                                            <td> {{ $bandeja->fecha_formateada }} </td>
+
+                                            <td style="width: 200px;">
+                                                {!! Form::open(['route' => ['bandeja.destroy', $bandeja], 'method' => 'DELETE', 'id' => 'delete-form']) !!}
+                                                <button class="btn btn-outline-danger delete-confirm" type="submit" title="Eliminar" onclick="confirmDelete(event)">
+                                                    <i class="far fa-trash-alt"></i>
+                                                </button> 
+                                                {!! Form::close() !!}
+                                            </td>
 
                                         </tr>
                                     @endforeach
@@ -66,7 +77,7 @@
 @endsection
 @section('scripts')
     {!! Html::script('melody/js/data-table.js') !!}
-    
+
     {!! Html::script('melody/responsive/js/responsive.bootstrap4.min.js') !!}
     {!! Html::script('melody/responsive/js/responsive.min.js') !!}
 @endsection
