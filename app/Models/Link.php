@@ -27,7 +27,7 @@ class Link extends Model
             $request->image->move(public_path('images'), $imageName);
             $imagePath = 'images/' . $imageName;
         } else {
-            $imagePath = 'images/lsoft_mini.png';
+            $imagePath = 'images/LOGO.png.png';
         }
 
         self::create([
