@@ -116,7 +116,7 @@
                                                 <h5 class="mb-4">{{ $proyect->description }}</h5>
 
                                                 <p class="">{!! $proyect->long_description !!}</p>
-                                                <a class="btn btn-primary" href="{{ $proyect->link }}">
+                                                <a class="btn btn-primary" href="{{ $proyect->link }}" target="_blank">
                                                     <i class="fas fa-arrow-right fa-fw"></i>
                                                     Ver más
                                                 </a>
