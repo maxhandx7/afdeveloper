@@ -87,29 +87,46 @@
                             <div class="text">
                                 <span>{{ $proyect->description }}</span>
                             </div>
-                            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModal-{{ $proyect->id }}">Ver detalles<i class="fa fa-play-circle ml-1"></i></button>
+                            <div class="portfolio-item mx-auto" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal-{{ $proyect->id }}"> <button type="button" class="portfolio-item mx-auto btn btn-primary btn-sm" data-toggle="modal" data-bs-target="#exampleModal-{{ $proyect->id }}">Ver detalles<i class="fa fa-play-circle ml-1"></i>
+                            </button></div>
                         </div>
                     </div>
 
-                    <div class="modal fade" id="exampleModal-{{ $proyect->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">{{ $proyect->title }}</h5>
-                              
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
+                    <div class="portfolio-modal modal fade" id="exampleModal-{{ $proyect->id }}" tabindex="-1"
+                        aria-labelledby="exampleModal-{{ $proyect->id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header border-0"><button class="btn-close" type="button"
+                                        data-bs-dismiss="modal" aria-label="Close"></button></div>
+                                <div class="modal-body text-center pb-5">
+                                    <div class="container">
+                                        <div class="row ">
+                                            <div class="col-lg-8">
+                                                <!-- Portfolio Modal - Title-->
+                                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
+                                                    {{ $proyect->title }}</h2>
+                                                <!-- Icon Divider-->
+                                                <div class="divider-custom">
+                                                    <div class="divider-custom-line"></div>
+                                                    <div class="divider-custom-icon"><i class="fas fa-code"></i></div>
+                                                    <div class="divider-custom-line"></div>
+                                                </div>
+                                                <!-- Portfolio Modal - Text-->
+                                                <h5 class="mb-4">{{ $proyect->description }}</h5>
+
+                                                <p class="">{!! $proyect->long_description !!}</p>
+                                                <a class="btn btn-primary" href="{{ $proyect->link }}">
+                                                    <i class="fas fa-arrow-right fa-fw"></i>
+                                                    Ver más
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                              {!! $proyect->long_description !!}
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-light" data-dismiss="modal">Cerrar</button>
-                            </div>
-                          </div>
                         </div>
-                      </div>
+                    </div>
                 @endforeach
             </div>
         </div>
@@ -125,11 +142,13 @@
 @endsection
 
 
+{!! Html::script('afdeveloper/js/scripts.js') !!}
 
-@section('scripts')
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script>
         $(document).ready(function() {
             $('body').addClass('sidebar-icon-only');
         });
     </script>
-@endsection
+

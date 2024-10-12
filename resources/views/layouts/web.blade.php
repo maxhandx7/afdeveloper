@@ -114,7 +114,7 @@
 
     {!! Html::script('afdeveloper/js/jquery.min.js') !!}
 
-
+    @yield('scripts')
 </body>
 
 </html>
