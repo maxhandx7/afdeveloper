@@ -101,7 +101,7 @@
                                         data-bs-dismiss="modal" aria-label="Close"></button></div>
                                 <div class="modal-body text-center pb-5">
                                     <div class="container">
-                                        <div class="row ">
+                                        <div class="row justify-content-center">
                                             <div class="col-lg-8">
                                                 <!-- Portfolio Modal - Title-->
                                                 <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
