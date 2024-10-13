@@ -51,4 +51,4 @@
 <a href="https://wa.me/+573145561727" class="whatsapp" target="_blank">
     <i class="fab fa-whatsapp whatsapp-icon" style="color:#FFF" aria-hidden="true"></i>
     <span class="notification">1</span>
-</a>
+</a> 
