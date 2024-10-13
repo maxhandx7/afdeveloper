@@ -86,31 +86,11 @@
 
               <div class="dropdown-divider"></div>
 
-              <a class="dropdown-item" href="{{ route('proyects') }}">
+              <a class="dropdown-item" href="{{ url('/') }}">
 
                 <i class="fa fa-eye mr-2 text-primary"></i>
 
-                Ver proyectos
-
-              </a>
-
-              <div class="dropdown-divider"></div>
-
-              <a class="dropdown-item" href="{{ route('clientes') }}">
-
-                <i class="fa fa-eye mr-2 text-primary"></i>
-
-                Ver clientes
-
-              </a>
-
-              <div class="dropdown-divider"></div>
-
-              <a class="dropdown-item" href="{{ route('equipo') }}">
-
-                <i class="fa fa-eye mr-2 text-primary"></i>
-
-                Ver equipos
+                ir a la web
 
               </a>
 

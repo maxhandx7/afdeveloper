@@ -20,7 +20,7 @@ class BusinessController extends Controller
     public function update(UpdateRequest $request, Business $business)
     {
         try {
-            $data = $request->except('_token', '_method', 'thead', 'facebook', 'twitter', 'instagram', 'show_letter', 'picture');
+            $data = $request->except('_token', '_method', 'thead', 'facebook', 'twitter', 'instagram', 'show_letter', 'picture', 'linkedin');
 
             if ($request->hasFile('picture')) {
                 $file = $request->file('picture');
@@ -39,9 +39,10 @@ class BusinessController extends Controller
             $configurations['facebook'] = $request->input('facebook', null);
             $configurations['twitter'] = $request->input('twitter', null);
             $configurations['instagram'] = $request->input('instagram', null);
-
-            $business->configurations = $configurations;
+            $configurations['linkedin'] = $request->input('linkedin', null);
             
+            $business->configurations = $configurations;
+    
             $business->update($data);
 
             return redirect()->route('business.index')->with('success', 'Se ha actualizado la empresa');

@@ -123,6 +123,13 @@
                                     {{ $business->configurations['instagram'] ?? 'sin datos' }}
                                 </p>
                                 <hr>
+
+                                <strong><i class="fab fa-linkedin mr-1"></i></strong>
+
+                                <p class="text-muted">
+                                    {{ $business->configurations['linkedin'] ?? 'sin datos' }}
+                                </p>
+                                <hr>
                             </div>
                         </div>
 
@@ -234,6 +241,13 @@
                         <input type="url" class="form-control" name="instagram" id="instagram"
                             value="{{ $business->configurations['instagram'] ?? '' }}"
                             placeholder="https://instagram.com/pagina" aria-describedby="instagramHelp">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="linkedin">linkedin</label>
+                        <input type="url" class="form-control" name="linkedin" id="linkedin"
+                            value="{{ $business->configurations['linkedin'] ?? '' }}"
+                            placeholder="https://linkedin.com/pagina" aria-describedby="linkedinHelp">
                     </div>
 
 
