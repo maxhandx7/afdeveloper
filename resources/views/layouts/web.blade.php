@@ -66,7 +66,12 @@
                 <div class="col-lg-4 mb-5 mb-lg-0">
                     <h4 class="text-uppercase mb-4">Ubicación</h4>
                     <p class="lead mb-0">
-                        {{ $business->address }}
+                        <a href="https://www.google.com/maps?q={{ urlencode($business->address) }}" 
+                            class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" 
+                            style="text-decoration: none" 
+                            target="_blank">
+                            <i class="fas fa-map-marker-alt"></i> {{ $business->address }}
+                         </a>                         
                     </p>
                 </div>
                 <!-- Footer Social Icons-->
@@ -90,8 +95,11 @@
                 <div class="col-lg-4">
                     <h4 class="text-uppercase mb-4">Contactos</h4>
                     <p class="lead mb-0">
-                        {{ $business->phone }} <br>
-                        <a href="mailto:{{ $business->mail }}">{{ $business->mail }}</a>
+                        <a href="tel: {{ $business->phone }}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" style="text-decoration: none"><i
+                            class="fas fa-phone"></i>  {{ $business->phone }}</a>
+                         <br>
+                        <a href="mailto:{{ $business->mail }}" class="link-offset-2 link-offset-3-hover link-underline link-underline-opacity-0 link-underline-opacity-75-hover" style="text-decoration: none"><i
+                            class="fas fa-envelope"></i> {{ $business->mail }}</a>
 
                     </p>
                 </div>
@@ -101,7 +109,7 @@
     <!-- Copyright Section-->
     <div class="copyright py-4 text-center text-white">
         <div class="container"> <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright ©
-                2024.
+                {{date("Y")}}.
                 Todos los derechos reservados.&nbsp;</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><b><a
                         style="text-decoration: none; " class="text-secondary" href="https://afdeveloper.com/"
