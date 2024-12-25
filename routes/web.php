@@ -4,7 +4,9 @@ use App\Http\Controllers\BandejaController;
 use App\Http\Controllers\BusinessController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ConfigController;
+use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\LinkController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TestController;
@@ -34,6 +36,8 @@ Route::get('/cambiar-contrasena', [ConfigController::class, 'showChangePasswordF
 Route::resource('clients', ClientController::class)->names('clients');
 Route::get('clientes', [ClientController::class, 'clients'])->name('clientes');
 Route::resource('teams', TeamController::class)->names('teams');
+Route::resource('expenses', ExpenseController::class)->names('expenses');
+Route::resource('incomes', IncomeController::class)->names('incomes');
 Route::get('equipo', [TeamController::class, 'teams'])->name('equipo');
 Route::resource('business', BusinessController::class)->names('business')->only([
     'index', 'update'

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Expense;
+use App\Models\Income;
 
 class HomeController extends Controller
 {
@@ -23,6 +25,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $totalExpenses = Expense::sum('amount');
+        $totalIncomes = Income::sum('amount');
+        $balance = $totalIncomes - $totalExpenses;
+        $ExpenselastUpdated = Expense::latest('updated_at')->first()->updated_at->format('H:i:s');
+        $IncomelastUpdated = Income::latest('updated_at')->first()->updated_at->format('H:i:s');
+
+        return view('home', compact('totalExpenses', 'totalIncomes', 'balance', 'ExpenselastUpdated', 'IncomelastUpdated'));
     }
+
+    
 }
