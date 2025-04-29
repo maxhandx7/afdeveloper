@@ -61,7 +61,7 @@
 
                                     @else
                                     <td>
-                                        <a class="badge badge-danger" href="{{ route('change.status.posts', $post)}}" title="Desactivado">
+                                        <a class="badge badge-danger" href="{{ route('change.status.blogs', $post)}}" title="Desactivado">
                                             No activo
                                         </a>
 
