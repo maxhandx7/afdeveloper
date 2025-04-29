@@ -8,6 +8,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\LinkController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TestController;
 use App\Models\Business;
@@ -26,8 +27,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('links', LinkController::class)->names('links');
+Route::resource('posts', PostController::class)->names('posts');
 Route::get('proyects', [LinkController::class, 'proyects'])->name('proyects');
+Route::get('blogs', [PostController::class, 'blogs'])->name('blogs');
 Route::get('change_status/links/{link}', [LinkController::class, 'change_status'])->name('change.status.links');
+Route::get('change_status_blog/posts/{post}', [PostController::class, 'change_status_blog'])->name('change.status.blogs');
 Route::get('/test-summernote', [TestController::class, 'index']);
 Route::resource('configs', ConfigController::class)->only(['edit', 'update']);
 Route::post('/profile/image', [ConfigController::class, 'updateProfileImage'])->name('update_profile_image');

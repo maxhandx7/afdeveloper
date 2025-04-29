@@ -1,5 +1,5 @@
 @extends('layouts.web')
-@section('title', 'LogisticaSoft')
+@section('title', $business->name)
 @section('styles')
 @endsection
 @section('options')

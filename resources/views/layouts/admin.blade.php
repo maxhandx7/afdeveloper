@@ -66,6 +66,16 @@
 
               <div class="dropdown-divider"></div>
 
+              <a class="dropdown-item" href="{{ route('posts.index') }}">
+
+                <i class="mdi mdi-laptop-mac mr-2 text-primary"></i>
+
+                Publicaciones
+
+              </a>
+
+              <div class="dropdown-divider"></div>
+
               <a class="dropdown-item" href="{{ route('clients.index') }}">
 
                 <i class="mdi mdi-scale-balance mr-2 text-primary"></i>
@@ -247,7 +257,7 @@
 
             {{-- <div class="d-sm-flex justify-content-center justify-content-sm-between"> --}}
 
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2024.
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2025.
 
               Todos los derechos reservados.&nbsp;</span>
 

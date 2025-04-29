@@ -123,7 +123,7 @@
                 {{date("Y")}}.
                 Todos los derechos reservados.&nbsp;</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center"><b><a
-                        style="text-decoration: none; " class="text-secondary" href="https://afdeveloper.com/"
+                        style="text-decoration: none; " class="text-secondary" href="{{route('login')}}"
                         target="_blank">&nbsp;AF</a> </b> <i class="far fa-heart text-danger"></i>&nbsp;</span>
         </div>
     </div>
