@@ -128,12 +128,14 @@
         </div>
     </div>
 
-    {!! Html::script('afdeveloper/js/bootstrap.bundle.min.js') !!}
+    {!! Html::script('afdeveloper/js/jquery.min.js') !!}
+
+    {!! Html::script('afdeveloper/js/bootstrap2.bundle.min.js') !!}
 
     {!! Html::script('afdeveloper/js/scripts.js') !!}
 
-    {!! Html::script('afdeveloper/js/jquery.min.js') !!}
-
+    {!! Html::script('afdeveloper/js/bootstrap.bundle.min.js') !!}
+ 
     @yield('scripts')
 </body>
 

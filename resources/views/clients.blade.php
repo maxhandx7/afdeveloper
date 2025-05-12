@@ -19,7 +19,6 @@
 
 
     <style>
-
         @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
 
 
@@ -110,32 +109,22 @@
 
         }
 
-        .carousel-indicators {
-
-            bottom: 20px;
-
-        }
-
-        
-
+       
     </style>
 
 
 
-    
 
 
 
-    <div id="clientCarousel" class="carousel slide mt-5" data-ride="carousel" data-interval="7000">
+
+    <div id="clientCarousel" class="carousel slide" style="margin-top: 75px;" data-ride="carousel" data-interval="7000">
 
         <ol class="carousel-indicators">
 
             @foreach ($clients as $index => $client)
-
                 <li data-target="#clientCarousel" data-slide-to="{{ $index }}"
-
                     class="{{ $index == 0 ? 'active' : '' }}"></li>
-
             @endforeach
 
         </ol>
@@ -145,7 +134,6 @@
         <div class="carousel-inner">
 
             @foreach ($clients as $index => $client)
-
                 <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
 
                     <div class="container">
@@ -156,17 +144,20 @@
 
                                 <div class="box-part text-center rounded">
 
-                                    <img src="{{ asset($client->image) }}" class="icon-img rounded-circle" alt="">
+                                    <img src="{{ asset($client->image) }}" class=" icon-img rounded-circle" alt="">
 
-                                    <div class="title">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <div class="title">
 
-                                        <h3>{{ $client->name }}</h3>
+                                            <h3>{{ $client->name }}</h3>
 
-                                    </div>
+                                        </div>
 
-                                    <div class="text">
+                                        <div class="text">
 
-                                        <span>{{ $client->description }}</span>
+                                            <p>{{ $client->description }}</p>
+
+                                        </div>
 
                                     </div>
 
@@ -179,16 +170,24 @@
                     </div>
 
                 </div>
-
             @endforeach
 
         </div>
+
+        <a class="carousel-control-prev" href="#clientCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#clientCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
 
     </div>
 
 
 
-{{--     <footer class="fixed-bottom ">
+    <footer class="fixed-bottom ">
 
         <div class="container text-center py-2">
 
@@ -200,7 +199,7 @@
 
         </div>
 
-    </footer> --}}
+    </footer>
 
 
 
@@ -215,14 +214,11 @@
 @section('scripts')
 
     <script>
-
         $(document).ready(function() {
 
             $('body').addClass('sidebar-icon-only');
 
         });
-
     </script>
 
 @endsection
-
