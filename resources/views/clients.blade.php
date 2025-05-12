@@ -146,7 +146,7 @@
 
                                     <img src="{{ asset($client->image) }}" class=" icon-img rounded-circle" alt="">
 
-                                    <div class="carousel-caption d-none d-md-block">
+                                    <div class="carousel-caption  d-md-block">
                                         <div class="title">
 
                                             <h3>{{ $client->name }}</h3>
