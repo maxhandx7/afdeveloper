@@ -1,22 +1,27 @@
+# -------- Stage 1: Build assets --------
+FROM node:18 AS nodebuilder
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm install
+
+COPY . .
+RUN npm run production
+
+
+# -------- Stage 2: PHP + Nginx --------
 FROM webdevops/php-nginx:7.4
 
 WORKDIR /app
 
-# Instalar Node (versión compatible con Laravel Mix viejo)
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-    && apt-get update \
-    && apt-get install -y nodejs
-
 COPY . /app
 
-# Instalar dependencias PHP
+# Copiamos assets compilados
+COPY --from=nodebuilder /app/public /app/public
+
 RUN composer install --no-dev --optimize-autoloader
 
-# Instalar dependencias JS y compilar assets
-RUN npm install
-RUN npm run prod
-
-# Permisos Laravel
 RUN chown -R application:application /app/storage /app/bootstrap/cache \
     && chmod -R 775 /app/storage /app/bootstrap/cache
 
