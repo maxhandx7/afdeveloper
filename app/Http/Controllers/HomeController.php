@@ -28,11 +28,14 @@ class HomeController extends Controller
         $totalExpenses = Expense::sum('amount');
         $totalIncomes = Income::sum('amount');
         $balance = $totalIncomes - $totalExpenses;
-        $ExpenselastUpdated = Expense::latest('updated_at')->first()->updated_at->format('H:i:s');
-        $IncomelastUpdated = Income::latest('updated_at')->first()->updated_at->format('H:i:s');
+        $expense = Expense::latest('updated_at')->first();
+        $ExpenselastUpdated = $expense ? $expense->updated_at->format('H:i:s') : 'Sin registros';
+
+        $income = Income::latest('updated_at')->first();
+        $IncomelastUpdated = $income ? $income->updated_at->format('H:i:s') : 'Sin registros';
 
         return view('home', compact('totalExpenses', 'totalIncomes', 'balance', 'ExpenselastUpdated', 'IncomelastUpdated'));
     }
 
-    
+
 }
