@@ -8,7 +8,7 @@
 @section('preference')
 @endsection
 @section('content')
-{!! Html::style('melody/vendors/summernote/dist/summernote-bs4.css') !!}
+    {!! Html::style('melody/vendors/summernote/dist/summernote-bs4.css') !!}
     <div class="content-wrapper">
         <div class="page-header">
             <h3 class="page-title">
@@ -16,7 +16,7 @@
             </h3>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb breadcrumb-custom">
-                    <li class="breadcrumb-item"><a href="{{route('home') }}">Panel administrador</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Panel administrador</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('links.index') }}">Enlaces</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Editar enlace</li>
                 </ol>
@@ -36,8 +36,8 @@
                         <div class="form-group">
                             <label for="title">Titulo</label>
                             <input type="text" name="title" id="title"
-                                class="form-control @error('title') is-invalid @enderror"
-                                placeholder="Titulo del enlace" value="{{ old('title', $link->title) }}" required>
+                                class="form-control @error('title') is-invalid @enderror" placeholder="Titulo del enlace"
+                                value="{{ old('title', $link->title) }}" required>
                             @error('title')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -49,8 +49,8 @@
                         <div class="form-group">
                             <label for="link">Link</label>
                             <input type="url" name="link" id="link"
-                                class="form-control @error('link') is-invalid @enderror" placeholder="https://web.com/" value="{{ old('link', $link->link) }}"
-                                required>
+                                class="form-control @error('link') is-invalid @enderror" placeholder="https://web.com/"
+                                value="{{ old('link', $link->link) }}" required>
                             @error('link')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -85,12 +85,19 @@
                                         <h4 class="card-title">Imágen</h4>
                                         <div class="form-group">
                                             @if (!$link->image)
-                                            <p>No hay imagen actualmente.</p>
+                                                <p>No hay imagen actualmente.</p>
                                             @endif
                                         </div>
                                         <div class="form-group">
                                             <label for="image">Actualizar Imagen</label>
-                                            <input type="file" name="image" class="dropify" data-default-file="/{{ $link->image }}" />
+                                            <input type="file" name="image"
+                                                class="dropify @error('image') is-invalid @enderror"
+                                                data-default-file="/{{ $link->image }}" />
+                                            @error('image')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
@@ -121,7 +128,7 @@
                 </div>
             </div>
         </div> --}}
-        
+
     </div>
 
 @endsection
