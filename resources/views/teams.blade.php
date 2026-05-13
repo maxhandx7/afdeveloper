@@ -1,67 +1,79 @@
 @extends('layouts.web')
 @section('title', $business->name)
 @section('styles')
-@endsection
-@section('options')
-@endsection
-@section('preference')
+<style>
+.teams-page { padding-top: calc(var(--nav-h) + var(--section-v)); padding-bottom: var(--section-v); }
+.teams-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2px;
+    background: var(--sand-lt);
+    margin-top: 4rem;
+}
+.team-card {
+    background: var(--ivory);
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+    transition: background .3s;
+}
+.team-card:hover { background: var(--ivory-dim); }
+.team-avatar {
+    width: 72px; height: 72px;
+    border-radius: 50%; object-fit: cover;
+    filter: grayscale(20%);
+    transition: filter .3s;
+    border: 1px solid var(--sand-lt);
+}
+.team-card:hover .team-avatar { filter: grayscale(0); }
+.team-info { border-top: 1px solid var(--sand-lt); width: 100%; padding-top: 1.5rem; }
+.team-name {
+    font-family: var(--f-display);
+    font-size: 1.4rem; font-weight: 300;
+    letter-spacing: -.02em; color: var(--ink); margin-bottom: .3rem;
+}
+.team-email {
+    font-family: var(--f-mono); font-size: .65rem;
+    letter-spacing: .1em; color: var(--slate-lt); margin-bottom: .8rem;
+}
+.team-role {
+    display: inline-block;
+    font-family: var(--f-mono); font-size: .6rem;
+    letter-spacing: .16em; text-transform: uppercase;
+    color: var(--slate); border: 1px solid var(--sand-lt);
+    padding: .3rem .8rem; border-radius: 2px;
+}
+</style>
 @endsection
 @section('content')
-
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
-
-        body {
-            background: #2d3748;
-            font-family: 'Josefin Sans', sans-serif;
-        }
-
-        h3 {
-            font-family: 'Josefin Sans', sans-serif;
-        }
-    </style>
-
-
-
-    <div
-        class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-2 sm:pt-0">
-        <div class="container ">
-            <div class="row">
-                @foreach ($teams as $index => $team)
-                <div class="col-md-4 grid-margin stretch-card ">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex flex-row">
-                                <img src="{{ asset($team->image) }}" class="img-lg rounded" alt="profile image" />
-                                
-                                <div class="ml-3">
-                                    <h6>{{ $team->name }}</h6>
-                                    <p class="text-muted">{{ $team->email }}</p>
-                                    <p class="mt-2 text-primary font-weight-bold">{{ $team->rol }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<div class="teams-page">
+    <div class="af-container">
+        <p class="section-tag" data-reveal="fade">Equipo</p>
+        <h1 class="display-h" data-reveal style="font-size:clamp(3rem,6vw,5rem)">
+            Las personas<br><em>detrás</em>
+        </h1>
+    </div>
+    <div class="af-container" style="padding-left:0;padding-right:0;max-width:100%">
+        <div class="teams-grid">
+            @foreach ($teams as $team)
+            <div class="team-card" data-reveal data-delay="{{ $loop->index * 80 }}">
+                <img class="team-avatar" src="{{ asset($team->image) }}" alt="{{ $team->name }}">
+                <div class="team-info">
+                    <h3 class="team-name">{{ $team->name }}</h3>
+                    <p class="team-email">{{ $team->email }}</p>
+                    <span class="team-role">{{ $team->rol }}</span>
                 </div>
-                @endforeach
             </div>
+            @endforeach
         </div>
     </div>
-    <footer class="fixed-bottom ">
-        <div class="container text-center py-2">
-            <a href="{{ url('/') }}" class="btn btn-outline-info">
-                &#8592; Volver Atrás
-            </a>
-        </div>
-    </footer>
+    <div class="af-container" style="margin-top:4rem">
+        <a href="{{ url('/') }}" class="af-btn af-btn-dark">← Volver</a>
+    </div>
+</div>
 @endsection
-
-
-
 @section('scripts')
-    <script>
-        $(document).ready(function() {
-            $('body').addClass('sidebar-icon-only');
-        });
-    </script>
+<script>$(document).ready(function(){$('body').addClass('sidebar-icon-only');});</script>
 @endsection

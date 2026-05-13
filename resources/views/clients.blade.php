@@ -1,224 +1,73 @@
 @extends('layouts.web')
-
 @section('title', $business->name)
-
 @section('styles')
-
+<style>
+.clients-page { padding-top: calc(var(--nav-h) + var(--section-v)); padding-bottom: var(--section-v); }
+.clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2px;
+    background: var(--sand-lt);
+    margin-top: 4rem;
+}
+.client-card {
+    background: var(--ivory);
+    padding: 3rem 2.5rem;
+    position: relative;
+    transition: background .3s;
+}
+.client-card:hover { background: var(--ivory-dim); }
+.client-q {
+    font-family: var(--f-display);
+    font-size: 4.5rem; font-weight: 300;
+    color: var(--sand); line-height: .75; margin-bottom: 1.5rem;
+}
+.client-text {
+    font-family: var(--f-display);
+    font-size: 1.1rem; font-weight: 300;
+    font-style: italic; line-height: 1.75;
+    color: var(--ink); margin-bottom: 2.5rem;
+}
+.client-author {
+    display: flex; align-items: center; gap: 1rem;
+    border-top: 1px solid var(--sand-lt); padding-top: 1.5rem;
+}
+.client-avatar { width: 42px; height: 42px; border-radius: 50%; object-fit: cover; filter: grayscale(15%); }
+.client-name {
+    font-family: var(--f-mono); font-size: .64rem;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--slate);
+}
+</style>
 @endsection
-
-@section('options')
-
-@endsection
-
-@section('preference')
-
-@endsection
-
 @section('content')
-
-
-
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
-
-
-
-        body {
-
-            background: #2d3748;
-
-            font-family: 'Josefin Sans', sans-serif;
-
-        }
-
-
-
-        h3 {
-
-            font-family: 'Josefin Sans', sans-serif;
-
-        }
-
-
-
-        .box {
-
-            padding: 60px 0px;
-
-            margin: -4em 0;
-
-        }
-
-
-
-        .box-part {
-
-            background: #2f6dc1;
-
-            color: #fff;
-
-            height: 400px;
-
-            padding: 60px 10px;
-
-            margin: 50px 0px;
-
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
-            margin-bottom: 25px;
-
-        }
-
-
-
-
-
-        .text {
-
-            margin: 20px 0px;
-
-        }
-
-
-
-        .fa {
-
-            color: #2f6dc1;
-
-        }
-
-
-
-        .title {
-
-            margin: 10px;
-
-        }
-
-
-
-        .icon-img {
-
-            width: 115px;
-
-            height: 150px;
-
-            object-fit: cover;
-
-            margin-bottom: 15px;
-
-        }
-
-       
-    </style>
-
-
-
-
-
-
-
-    <div id="clientCarousel" class="carousel slide" style="margin-top: 75px;" data-ride="carousel" data-interval="7000">
-
-        <ol class="carousel-indicators">
-
-            @foreach ($clients as $index => $client)
-                <li data-target="#clientCarousel" data-slide-to="{{ $index }}"
-                    class="{{ $index == 0 ? 'active' : '' }}"></li>
-            @endforeach
-
-        </ol>
-
-
-
-        <div class="carousel-inner">
-
-            @foreach ($clients as $index => $client)
-                <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-
-                    <div class="container">
-
-                        <div class="row justify-content-center">
-
-                            <div class="col-lg-12 col-md-12 col-sm-4 col-xs-12">
-
-                                <div class="box-part text-center rounded">
-
-                                    <img src="{{ asset($client->image) }}" class=" icon-img rounded-circle" alt="">
-
-                                    <div class="carousel-caption  d-md-block">
-                                        <div class="title">
-
-                                            <h3>{{ $client->name }}</h3>
-
-                                        </div>
-
-                                        <div class="text">
-
-                                            <p>{{ $client->description }}</p>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-            @endforeach
-
-        </div>
-
-        <a class="carousel-control-prev" href="#clientCarousel" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#clientCarousel" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-
+<div class="clients-page">
+    <div class="af-container">
+        <p class="section-tag" data-reveal="fade">Testimonios</p>
+        <h1 class="display-h" data-reveal style="font-size:clamp(3rem,6vw,5rem)">
+            Lo que dicen<br><em>de mí</em>
+        </h1>
     </div>
 
-
-
-    <footer class="fixed-bottom ">
-
-        <div class="container text-center py-2">
-
-            <a href="{{ url('/') }}" class="btn btn-outline-info">
-
-                &#8592; Volver Atrás
-
-            </a>
-
+    <div class="af-container" style="padding-left:0;padding-right:0;max-width:100%">
+        <div class="clients-grid">
+            @foreach ($clients as $client)
+            <div class="client-card" data-reveal data-delay="{{ $loop->index * 80 }}">
+                <div class="client-q">&ldquo;</div>
+                <p class="client-text">{{ $client->description }}</p>
+                <div class="client-author">
+                    <img class="client-avatar" src="{{ asset($client->image) }}" alt="{{ $client->name }}">
+                    <span class="client-name">{{ $client->name }}</span>
+                </div>
+            </div>
+            @endforeach
         </div>
+    </div>
 
-    </footer>
-
-
-
+    <div class="af-container" style="margin-top:4rem">
+        <a href="{{ url('/') }}" class="af-btn af-btn-dark">← Volver</a>
+    </div>
+</div>
 @endsection
-
-
-
-
-
-
-
 @section('scripts')
-
-    <script>
-        $(document).ready(function() {
-
-            $('body').addClass('sidebar-icon-only');
-
-        });
-    </script>
-
+<script>$(document).ready(function(){$('body').addClass('sidebar-icon-only');});</script>
 @endsection

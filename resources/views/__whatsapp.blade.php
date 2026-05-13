@@ -1,54 +1,28 @@
 <style>
-    .whatsapp {
-        position: fixed;
-        width: 60px;
-        height: 60px;
-        bottom: 40px;
-        right: 40px;
-        background-color: #25d366;
-        color: #FFF;
-        border-radius: 50px;
-        text-align: center;
-        font-size: 30px;
-        z-index: 100;
-        animation: pulse 1.5s infinite;
-    }
-
-    .whatsapp-icon {
-        margin-top: 13px;
-    }
-
-    .notification {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background-color: red;
-        color: white;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        font-size: 12px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-weight: bold;
-        z-index: 101;
-    }
-
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.1);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
+.wa-float {
+    position: fixed;
+    bottom: 2.2rem; right: 2.2rem;
+    z-index: 400;
+    width: 50px; height: 50px;
+    background: #25d366;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 1.3rem;
+    text-decoration: none;
+    box-shadow: 0 4px 24px rgba(37,211,102,.3);
+    transition: transform .25s, box-shadow .25s;
+    animation: wa-appear .6s 1.5s ease backwards;
+}
+.wa-float:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 32px rgba(37,211,102,.5);
+    color: #fff;
+}
+@keyframes wa-appear {
+    from { opacity: 0; transform: scale(.6); }
+    to   { opacity: 1; transform: scale(1); }
+}
 </style>
-
-<a href="https://wa.me/+573145561727" class="whatsapp" target="_blank">
-    <i class="fab fa-whatsapp whatsapp-icon" style="color:#FFF" aria-hidden="true"></i>
-    
-</a> 
+<a href="https://wa.me/+573145561727" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>

@@ -1,154 +1,107 @@
 @extends('layouts.web')
 @section('title', $business->name)
 @section('styles')
-@endsection
-@section('options')
-@endsection
-@section('preference')
+<style>
+.proj-page { padding-top: calc(var(--nav-h) + var(--section-v)); padding-bottom: var(--section-v); }
+.proj-page-header { margin-bottom: 5rem; }
+.proj-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: var(--sand-lt);
+}
+@media (max-width: 860px) { .proj-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .proj-grid { grid-template-columns: 1fr; } }
+
+.proj-tile {
+    background: var(--ivory);
+    overflow: hidden;
+    position: relative;
+    aspect-ratio: 4/3;
+    cursor: pointer;
+}
+.proj-tile img { width:100%; height:100%; object-fit:cover; display:block;
+    transition: transform .7s cubic-bezier(.22,.61,.36,1), filter .4s; filter: grayscale(15%); }
+.proj-tile:hover img { transform: scale(1.06); filter: grayscale(0); }
+.proj-tile-info {
+    position: absolute; inset:0;
+    background: rgba(14,14,15,.65);
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 2rem;
+    opacity: 0; transition: opacity .3s;
+    backdrop-filter: blur(3px);
+}
+.proj-tile:hover .proj-tile-info { opacity: 1; }
+.proj-tile-title {
+    font-family: var(--f-display);
+    font-size: 1.5rem; font-weight: 300;
+    color: #fff; letter-spacing: -.02em; margin-bottom: .4rem;
+}
+.proj-tile-desc { font-family: var(--f-mono); font-size: .6rem;
+    letter-spacing: .15em; text-transform: uppercase; color: var(--sand); }
+.proj-tile-btn {
+    margin-top: 1rem;
+    font-family: var(--f-mono); font-size: .6rem;
+    letter-spacing: .15em; text-transform: uppercase;
+    color: var(--ivory); border: 1px solid rgba(255,255,255,.3);
+    padding: .5rem 1rem; border-radius: 2px; display: inline-block;
+    background: transparent; transition: background .2s;
+}
+.proj-tile:hover .proj-tile-btn { background: rgba(255,255,255,.1); }
+</style>
 @endsection
 @section('content')
+<div class="proj-page">
+    <div class="af-container">
+        <div class="proj-page-header">
+            <p class="section-tag" data-reveal="fade">Proyectos</p>
+            <h1 class="display-h" data-reveal style="font-size:clamp(3rem,6vw,5rem)">
+                Todo el<br><em>portafolio</em>
+            </h1>
+        </div>
+    </div>
 
-    <style>
-        @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
-
-        body {
-            background: #2d3748 ;
-            font-family: 'Josefin Sans', sans-serif;
-        }
-
-        h3 {
-            font-family: 'Josefin Sans', sans-serif;
-        }
-
-        .box {
-            padding: 60px 0px;
-            margin: -4em 0;
-        }
-
-        .box-part {
-            background: #F0FFFF;
-            height: 330px;
-            padding: 60px 10px;
-            margin: 30px 0px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            margin-bottom: 25px;
-        }
-
-        .box-part:hover {
-            background: #2f6dc1;
-        }
-
-        .box-part:hover .fa,
-        .box-part:hover .title,
-        .box-part:hover .text,
-        .box-part:hover a {
-            color: #FFF;
-            -webkit-transition: all 1s ease-out;
-            -moz-transition: all 1s ease-out;
-            -o-transition: all 1s ease-out;
-            transition: all 1s ease-out;
-        }
-
-        .text {
-            margin: 20px 0px;
-        }
-
-        .fa {
-            color: #2f6dc1;
-        }
-
-        .title {
-            margin: 10px;
-        }
-
-        .icon-img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            margin-bottom: 15px;
-        }
-
-         #proyects{
-            margin-top: 7%;
-        }
-    </style>
-
-
-        <div class="container">
-            <div class="row" id="proyects">
-                @foreach ($proyects as $proyect)
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                        <div class="box-part text-center rounded">
-                            <img src="{{ asset($proyect->image) }}" class="icon-img rounded-circle"
-                                alt="">
-                            <div class="title">
-                                <h3><a href="{{ $proyect->link }}" target="_blank" rel="noopener noreferrer" style="text-decoration: none"> {{ $proyect->title }} </a></h3>
-                            </div>
-                            <div class="text">
-                                <span>{{ $proyect->description }}</span>
-                            </div>
-                            <div class="portfolio-item mx-auto" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal-{{ $proyect->id }}"> <button type="button" class="portfolio-item mx-auto btn btn-primary btn-sm" data-toggle="modal" data-bs-target="#exampleModal-{{ $proyect->id }}">Ver detalles<i class="fa fa-play-circle ml-1"></i>
-                            </button></div>
-                        </div>
-                    </div>
-
-                    <div class="portfolio-modal modal fade" id="exampleModal-{{ $proyect->id }}" tabindex="-1"
-                        aria-labelledby="exampleModal-{{ $proyect->id }}" aria-hidden="true">
-                        <div class="modal-dialog modal-xl">
-                            <div class="modal-content">
-                                <div class="modal-header border-0"><button class="btn-close" type="button"
-                                        data-bs-dismiss="modal" aria-label="Close"></button></div>
-                                <div class="modal-body text-center pb-5">
-                                    <div class="container">
-                                        <div class="row justify-content-center">
-                                            <div class="col-lg-8">
-                                                <!-- Portfolio Modal - Title-->
-                                                <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">
-                                                    {{ $proyect->title }}</h2>
-                                                <!-- Icon Divider-->
-                                                <div class="divider-custom">
-                                                    <div class="divider-custom-line"></div>
-                                                    <div class="divider-custom-icon"><i class="fas fa-code"></i></div>
-                                                    <div class="divider-custom-line"></div>
-                                                </div>
-                                                <!-- Portfolio Modal - Text-->
-                                                <h5 class="mb-4">{{ $proyect->description }}</h5>
-
-                                                <p class="">{!! $proyect->long_description !!}</p>
-                                                <a class="btn btn-primary" href="{{ $proyect->link }}" target="_blank">
-                                                    <i class="fas fa-arrow-right fa-fw"></i>
-                                                    Ver más
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
+    <div class="proj-grid">
+        @foreach ($proyects as $proyect)
+        <div class="proj-tile" data-bs-toggle="modal" data-bs-target="#pm{{ $proyect->id }}"
+             data-reveal data-delay="{{ $loop->index * 60 }}">
+            <img src="{{ asset($proyect->image) }}" alt="{{ $proyect->title }}">
+            <div class="proj-tile-info">
+                <p class="proj-tile-desc">Proyecto</p>
+                <h3 class="proj-tile-title">{{ $proyect->title }}</h3>
+                <span class="proj-tile-btn">Ver detalles →</span>
+            </div>
+        </div>
+        <div class="af-modal modal fade" id="pm{{ $proyect->id }}" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content">
+                    <div class="modal-header border-0"><button class="btn-close" type="button" data-bs-dismiss="modal"></button></div>
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-8">
+                                <h2 class="modal-proj-title">{{ $proyect->title }}</h2>
+                                <hr style="border-color:var(--sand-lt);margin:1.5rem 0">
+                                <p class="modal-proj-desc mb-3"><strong>{{ $proyect->description }}</strong></p>
+                                <p class="modal-proj-desc">{!! $proyect->long_description !!}</p>
+                                <div class="mt-4">
+                                    <a class="af-btn af-btn-dark" href="{{ $proyect->link }}" target="_blank">
+                                        Ver proyecto <i class="fas fa-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                </div>
             </div>
         </div>
+        @endforeach
+    </div>
 
-    {{-- <footer class="fixed-bottom ">
-        <div class="container text-center py-2">
-            <a href="{{ url('/') }}" class="btn btn-outline-info">
-                &#8592; Volver Atrás
-            </a>
-        </div>
-    </footer> --}}
-
+    <div class="af-container" style="margin-top:4rem">
+        <a href="{{ url('/') }}" class="af-btn af-btn-dark">← Volver</a>
+    </div>
+</div>
 @endsection
-
-
-{!! Html::script('afdeveloper/js/scripts.js') !!}
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function() {
-            $('body').addClass('sidebar-icon-only');
-        });
-    </script>
-
+@section('scripts')
+<script>$(document).ready(function(){$('body').addClass('sidebar-icon-only');});</script>
+@endsection
