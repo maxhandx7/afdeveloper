@@ -47,7 +47,12 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Imágen</h4>
-                <input type="file" name="image" class="dropify"  />
+                <input type="file" name="image" class="dropify @error('image') is-invalid @enderror"  />
+                @error('image')
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $message }}</strong>
+        </span>
+    @enderror
             </div>
         </div>
     </div>
