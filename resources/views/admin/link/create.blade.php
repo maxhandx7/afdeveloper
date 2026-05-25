@@ -30,6 +30,7 @@
                        
                     </div>
                     {!! Form::open(['route'=>'links.store', 'method'=>'POST', 'files' => true]) !!}
+                    @include('errors.message')
                     @include('admin.link._form')
                     <button type="submit" class="btn btn-primary mr-2">Agregar</button>
                     <a href="{{route('links.index') }}" class="btn btn-light mr-2">
