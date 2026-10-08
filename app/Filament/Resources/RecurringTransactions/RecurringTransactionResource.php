@@ -60,7 +60,7 @@ class RecurringTransactionResource extends Resource
             Select::make('frequency')->label('Se repite')->options(Frequency::class)->default(Frequency::Monthly)->required(),
             DatePicker::make('next_due_date')->label('Próximo cobro')->native(false)->default(today())->required(),
             Select::make('category_id')->label('Categoría')
-                ->relationship('category', 'name', fn (Builder $q, Get $get) => $q->where('type', TransactionForm::type($get('type'))))
+                ->relationship('category', 'name', fn (Builder $query, Get $get) => $query->where('type', TransactionForm::type($get('type'))))
                 ->preload(),
             Select::make('finance_account_id')->label('Cuenta')->relationship('account', 'name')->preload(),
             Select::make('client_id')->label('Cliente')->relationship('client', 'name')->searchable()->preload()

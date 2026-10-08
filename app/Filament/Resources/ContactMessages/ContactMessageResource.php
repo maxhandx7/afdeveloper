@@ -88,8 +88,8 @@ class ContactMessageResource extends Resource
                 TernaryFilter::make('read_at')->label('Estado')->nullable()
                     ->trueLabel('Leídos')->falseLabel('Sin leer')
                     ->queries(
-                        true: fn (Builder $q) => $q->whereNotNull('read_at'),
-                        false: fn (Builder $q) => $q->whereNull('read_at'),
+                        true: fn (Builder $query) => $query->whereNotNull('read_at'),
+                        false: fn (Builder $query) => $query->whereNull('read_at'),
                     ),
             ])
             ->recordUrl(fn (ContactMessage $record) => static::getUrl('view', ['record' => $record]))
