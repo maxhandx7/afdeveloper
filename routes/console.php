@@ -1,19 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-/*
-|--------------------------------------------------------------------------
-| Console Routes
-|--------------------------------------------------------------------------
-|
-| This file is where you may define all of your Closure based console
-| commands. Each Closure is bound to a command instance allowing a
-| simple approach to interacting with each command's IO methods.
-|
-*/
+// Crea los gastos/ingresos recurrentes del día (VPS, dominios, igualas…).
+Schedule::command('finance:recurring')->dailyAt('06:00')->withoutOverlapping();
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote');
+// Limpia trabajos fallidos viejos de la cola.
+Schedule::command('queue:prune-failed --hours=720')->weekly();

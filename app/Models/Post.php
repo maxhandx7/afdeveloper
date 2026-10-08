@@ -2,60 +2,49 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\PublishStatus;
+use App\Models\Concerns\HasSlug;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
-    use HasFactory;
-
+    use HasSlug;
 
     protected $fillable = [
-        'image',
-        'title',
-        'long_description',
-        'status',
+        'image', 'title', 'slug', 'excerpt', 'meta_description',
+        'long_description', 'status', 'published_at',
     ];
 
+    protected $attributes = ['status' => 'DESACTIVATED'];
 
-    public function my_store($request)
+    protected function casts(): array
     {
-
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
-            $imagePath = 'images/' . $imageName;
-        } else {
-            $imagePath = 'images/LOGO.png.png';
-        }
-
-        self::create([
-            'title' => $request->title,
-            'long_description' => $request->long_description,
-            'image' => $imagePath,
-        ]);
+        return [
+            'status' => PublishStatus::class,
+            'published_at' => 'datetime',
+        ];
     }
 
-    public function my_update($request, $link)
+    #[Scope]
+    protected function published(Builder $query): void
     {
-        
-        $link = $this::findOrFail($link->id);
+        $query->where('status', PublishStatus::Published)
+            ->where(fn (Builder $q) => $q->whereNull('published_at')->orWhere('published_at', '<=', now()))
+            ->latest('published_at');
+    }
 
-        if ($request->hasFile('image')) {
-            if ($link->image && file_exists(public_path($link->image))) {
-                unlink(public_path($link->image));
-            }
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
-            $imagePath = 'images/' . $imageName;
-        } else {
-            $imagePath = $link->image;
-        }
-        
-        $this->update([
-            'title' => $request->title,
-            'long_description' => $request->long_description,
-            'image' => $imagePath,
-        ]);
+    /** Resumen para tarjetas y meta tags cuando no se escribió uno a mano. */
+    public function summary(int $limit = 160): string
+    {
+        return $this->excerpt
+            ?: Str::limit(trim(preg_replace('/\s+/', ' ', strip_tags((string) $this->long_description))), $limit);
+    }
+
+    public function readingMinutes(): int
+    {
+        return max(1, (int) ceil(str_word_count(strip_tags((string) $this->long_description)) / 200));
     }
 }
