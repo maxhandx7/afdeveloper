@@ -2,59 +2,39 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Enums\TransactionStatus;
+use App\Enums\TransactionType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/** Cliente que paga (no confundir con los testimonios del sitio). */
 class Client extends Model
 {
-    use HasFactory;
+    protected $fillable = ['name', 'company', 'document', 'email', 'phone', 'city', 'notes'];
 
-
-    protected $fillable = [
-        'image',
-        'name',
-        'description',
-    ];
-
-
-    public function my_store($request)
+    public function transactions(): HasMany
     {
-
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
-            $imagePath = 'images/' . $imageName;
-        } else {
-            $imagePath = 'images/LOGO.png';
-        }
-
-        self::create([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image' => $imagePath,
-        ]);
+        return $this->hasMany(Transaction::class);
     }
 
-    public function my_update($request, $client)
+    public function recurringTransactions(): HasMany
     {
-        
-        $client = $this::findOrFail($client->id);
+        return $this->hasMany(RecurringTransaction::class);
+    }
 
-        if ($request->hasFile('image')) {
-            if ($client->image && file_exists(public_path($client->image))) {
-                unlink(public_path($client->image));
-            }
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images'), $imageName);
-            $imagePath = 'images/' . $imageName;
-        } else {
-            $imagePath = $client->image;
-        }
-        
-        $this->update([
-            'name' => $request->name,
-            'description' => $request->description,
-            'image' => $imagePath,
-        ]);
+    public function totalBilled(): float
+    {
+        return (float) $this->transactions()
+            ->where('type', TransactionType::Income)
+            ->where('status', TransactionStatus::Paid)
+            ->sum('amount_base');
+    }
+
+    public function totalOwed(): float
+    {
+        return (float) $this->transactions()
+            ->where('type', TransactionType::Income)
+            ->where('status', TransactionStatus::Pending)
+            ->sum('amount_base');
     }
 }

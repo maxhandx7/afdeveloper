@@ -2,27 +2,32 @@
 
 namespace App\Providers;
 
+use App\Models\Business;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\ServiceProvider; 
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
+        //
     }
 
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
+    public function boot(): void
     {
-        Model::unguard();
+        Carbon::setLocale('es');
+
+        // En desarrollo, Eloquent se queja de N+1 y atributos inexistentes
+        // en vez de fallar en silencio. En producción no molesta.
+        Model::shouldBeStrict(! $this->app->isProduction());
+
+        // Datos de la empresa solo para las vistas públicas, y cacheados.
+        // (Antes había 3 service providers consultando la BD en CADA request,
+        // incluidos los comandos de artisan.)
+        View::composer(['layouts.web', 'pages.*', 'partials.*'], function ($view) {
+            $view->with('business', Business::current());
+        });
     }
 }
