@@ -6,7 +6,9 @@ use App\Filament\Support\ContentFields;
 use App\Models\Business;
 use BackedEnum;
 use Filament\Actions\Action;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Pages\Page;
@@ -61,6 +63,26 @@ class SiteSettings extends Page
                             ->helperText('Aparece arriba del título del inicio con un punto verde. Vacío = no se muestra.')
                             ->maxLength(80),
                     ]),
+                    Section::make('Cuentas de cobro')
+                        ->description('Datos que aparecen en las cuentas de cobro y cotizaciones en PDF.')
+                        ->columns(3)
+                        ->collapsible()
+                        ->schema([
+                            TextInput::make('configurations.billing.holder_name')->label('Nombre completo')
+                                ->placeholder('Alan Ferrney Carabali Paz'),
+                            TextInput::make('configurations.billing.holder_document')->label('Cédula'),
+                            TextInput::make('configurations.billing.city')->label('Ciudad')->placeholder('Cali'),
+                            Textarea::make('configurations.billing.bank_details')->label('Datos para el pago')->rows(3)
+                                ->placeholder("Bancolombia — Ahorros No. …\nNequi: …")->columnSpan(2),
+                            FileUpload::make('configurations.billing.signature')->label('Firma (imagen PNG)')
+                                ->disk('local')->directory('billing')->visibility('private')
+                                ->image()->maxSize(1024)
+                                ->helperText('Fondo transparente o blanco. Se guarda en privado.'),
+                            Toggle::make('configurations.billing.iva_note_enabled')->label('Incluir nota de "no responsable de IVA"')->default(true),
+                            Textarea::make('configurations.billing.iva_note')->label('Texto de la nota')->rows(2)->columnSpan(2)
+                                ->placeholder(\App\Services\Billing\BillingDocuments::DEFAULT_IVA_NOTE)
+                                ->helperText('Vacío = se usa el texto sugerido. Confírmalo con tu contador.'),
+                        ]),
                     Section::make('Contacto')->columns(3)->schema([
                         TextInput::make('mail')->label('Correo')->email()->required(),
                         TextInput::make('phone')->label('Teléfono')->tel(),

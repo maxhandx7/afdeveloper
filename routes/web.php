@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PublicDocumentController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\SitemapController;
 use App\Http\Controllers\Webhooks\CrediTrackWebhookController;
@@ -22,6 +23,15 @@ Route::post('/contacto', [ContactController::class, 'store'])
     ->name('contact.store');
 
 Route::get('/sitemap.xml', SitemapController::class)->name('sitemap');
+
+// PDF de cotizaciones y cuentas de cobro para el cliente (enlace con token, sin login).
+Route::get('/documentos/{token}', PublicDocumentController::class)
+    ->where('token', '[A-Za-z0-9]{40}')
+    ->middleware('throttle:30,1')
+    ->name('documents.public');
+Route::get('/panel/documentos/{billingDocument}/pdf', [PublicDocumentController::class, 'preview'])
+    ->middleware('auth')
+    ->name('documents.preview');
 
 // Eventos de CrediTrack (préstamos y pagos) → movimientos en Finanzas. Verificados con firma HMAC.
 Route::post('/webhooks/creditrack', CrediTrackWebhookController::class)
